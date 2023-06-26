@@ -1,9 +1,10 @@
 import React from "react";
+import {Header} from "@/components";
 
 const HomePage : React.FC = () => {
 	return (
 		<>
-			<h1>Home Page</h1>
+			<Header/>
 		</>
 	);
 }

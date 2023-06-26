@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 const Layout : React.FC<{children: ReactNode}>  = ({ children }: {children: ReactNode}) => {
 	return (
 		<>
-			<Header/>
+			<Navbar/>
 			<main>
 				{children}
 			</main>

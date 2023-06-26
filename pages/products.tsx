@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductsPage : React.FC = () => {
+const Products : React.FC = () => {
 	return (
 		<>
 			<h1>Products Page</h1>
@@ -8,4 +8,4 @@ const ProductsPage : React.FC = () => {
 	);
 }
 
-export default ProductsPage;
+export default Products;

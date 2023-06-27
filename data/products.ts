@@ -1,6 +1,6 @@
 import {IProduct, ISingleProduct} from '@/interfaces/product.interface';
 
-export const data: IProduct[] = [
+export const productsData: IProduct[] = [
     {
         id: 1,
         name: 'DRÖNA Box, patterned green, beige',
@@ -36,7 +36,7 @@ export const data: IProduct[] = [
         name: 'SOKKER Plant pot, indoor/outdoor light green',
         price: 4.99,
         image: 'https://www.ikea.com/us/en/images/products/socker-plant-pot-indoor-outdoor-light-green__1147760_pe883446_s5.jpg?f=xl',
-    },
+    }
 ];
 
 export const detailedData: ISingleProduct[] = [
@@ -93,5 +93,5 @@ export const detailedData: ISingleProduct[] = [
         description: 'The plant pot is galvanized to protect against corrosion.',
         category: 'Decoration',
         countInStock: 10,
-    },
+    }
 ];

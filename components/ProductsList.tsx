@@ -21,11 +21,9 @@ const ProductsList: React.FC<ProductsListProps> = ({products}) => {
     }
     return (
         <ProductsContainer>
-
                 {products.map((product) => {
                     return <Product key={product.id} {...product} />;
                 })}
-
         </ProductsContainer>
     );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {ProductsList} from "@/components";
-import {data} from "@/data/data";
+import {IProduct} from "@/interfaces/product.interface";
 
 
 const Wrapper = styled.div`
@@ -18,14 +18,35 @@ const Wrapper = styled.div`
   }
 `;
 
-const Index: React.FC = () => {
+const Index = ({products}: {products: IProduct[]}) => {
     return (
         <Wrapper className='page'>
             <div className='section-center products'>
-                <ProductsList products={data}/>
+                <ProductsList products={products}/>
             </div>
         </Wrapper>
     );
 }
+
+export const getStaticProps = async () => {
+    try {
+        const res = await fetch('http://localhost:3000/api/products');
+        const products: IProduct[] = await res.json();
+        return {
+            props: {
+                products,
+            },
+            revalidate: 60,
+        };
+    } catch
+        (error) {
+        return {
+            props: {
+                products: [],
+            },
+            revalidate: 60,
+        };
+    }
+};
 
 export default Index;

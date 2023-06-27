@@ -1,9 +1,10 @@
 import React from 'react';
-import {useRouter} from 'next/router';
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
-import {detailedData} from "@/data/data";
+import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
+import {IProduct, ISingleProduct} from "@/interfaces/product.interface";
+
 
 const Wrapper = styled.section`
   .product-center {
@@ -43,14 +44,7 @@ const Wrapper = styled.section`
     }
   }
 `;
-const ProductPage = () => {
-    const router = useRouter();
-    const {id} = router.query;
-
-    const product = detailedData.find((item) => item.id === parseInt(id?.toString() || "0"));
-    if (!product) {
-        return <h1>Product not found</h1>;
-    }
+const ProductPage = ({product} : {product: ISingleProduct}) => {
 
     return (
         <Wrapper className='section section-center page'>
@@ -95,5 +89,55 @@ const ProductPage = () => {
 
     );
 };
+
+export const getStaticProps = async ({params} : {params: Params}) => {
+    try {
+        const {id} = params;
+        const res = await fetch(`http://localhost:3000/api/products/${id}`);
+        const product = await res.json();
+
+        if (!product) {
+            return {
+                notFound: true,
+            }
+        }
+
+        return {
+            props: {
+                product,
+            },
+            revalidate: 60,
+        };
+    } catch (error) {
+        return {
+            notFound: true,
+        };
+    }
+};
+
+export const getStaticPaths = async () => {
+    try {
+        const res = await fetch(`http://localhost:3000/api/products`);
+        const products: IProduct[] = await res.json();
+        const paths = products.map((product) => {
+            const {id} = product;
+            return {
+                params: {
+                    id: id.toString(),
+                },
+            };
+        });
+
+        return {
+            paths,
+            fallback: false,
+        };
+    } catch (error) {
+        return {
+            paths: [],
+            fallback: false,
+        };
+    }
+}
 
 export default ProductPage;
